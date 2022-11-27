@@ -37,6 +37,25 @@ public class Banco extends javax.swing.JFrame {
         tblMovimientos.setModel(modelMovs);
 
     }
+    
+       public void revisarT(){
+        cliente = listaClientes.get(cboConsultaTarjeta.getSelectedIndex());
+        tarjeta = cliente.getMistarjetas().get(cboConsultaTipoTarjeta.getSelectedIndex());
+        Boolean revision = false;
+        double limite = tarjeta.getLimite();
+        double saldo = limite;
+        while(modelMovs.getRowCount()>0){
+            modelMovs.removeRow(0);
+        }
+        for(Movimiento m : tarjeta.getMismovimientos()){
+            Object mov[]=new Object [4];
+            mov[0] = tarjeta.getTipoTarjeta();
+            mov[1]= m.getFechaMovimiento();
+            mov[2]=m.getTipoMovimiento();
+            mov[3]=aMoneda(m.getMonto());
+            saldo+=m.getMonto();
+            modelMovs.addRow(mov);
+        }
 
 
     @SuppressWarnings("unchecked")
