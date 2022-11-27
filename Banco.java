@@ -38,6 +38,25 @@ public class Banco extends javax.swing.JFrame {
 
     }
     
+       public void revisar(){
+        cliente = listaClientes.get(cboConsultaCliente.getSelectedIndex());
+        cuenta = cliente.getMiscuentas().get(cboConsultaTipoCuenta.getSelectedIndex());
+        double saldo = 0;
+        Boolean revision = false;
+        while(modelMovs.getRowCount()>0){
+            modelMovs.removeRow(0);
+        }
+        for(Movimiento m : cuenta.getMismovimientos()){
+            Object mov[]=new Object [4];
+            mov[0] = cuenta.getTipoCuenta();
+            mov[1]= m.getFechaMovimiento();
+            mov[2]=m.getTipoMovimiento();
+            mov[3]=aMoneda(m.getMonto());
+            saldo+=m.getMonto();
+            modelMovs.addRow(mov);
+        }
+        
+    
        
     
     
