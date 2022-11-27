@@ -38,51 +38,7 @@ public class Banco extends javax.swing.JFrame {
 
     }
     
-       public void revisarT(){
-        cliente = listaClientes.get(cboConsultaTarjeta.getSelectedIndex());
-        tarjeta = cliente.getMistarjetas().get(cboConsultaTipoTarjeta.getSelectedIndex());
-        Boolean revision = false;
-        double limite = tarjeta.getLimite();
-        double saldo = limite;
-        while(modelMovs.getRowCount()>0){
-            modelMovs.removeRow(0);
-        }
-        for(Movimiento m : tarjeta.getMismovimientos()){
-            Object mov[]=new Object [4];
-            mov[0] = tarjeta.getTipoTarjeta();
-            mov[1]= m.getFechaMovimiento();
-            mov[2]=m.getTipoMovimiento();
-            mov[3]=aMoneda(m.getMonto());
-            saldo+=m.getMonto();
-            modelMovs.addRow(mov);
-        }
-
-       cliente = listaClientes.get(cboConsultaCliente.getSelectedIndex());
-        cuenta = cliente.getMiscuentas().get(cboConsultaTipoCuenta.getSelectedIndex());
-        Movimiento m = new Movimiento();
-        m.setFechaMovimiento(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-        m.setTipoMovimiento(cboTipoMovimiento.getSelectedItem().toString());
-        double monto = Double.parseDouble(txtMontoMovimiento.getText().toString());
-        monto = m.getTipoMovimiento().endsWith("DEPOSITO")?monto:(monto*-1);
-        m.setMonto(monto);
-        
-        double saldo2 = saldo + monto;
-        
-        
-        if (saldo2 > 0 ){
-            
-            revision = true;
-        }
-        if (revision == true){
-            cuenta.addMovimiento(m);
-            verMovimientos();
-            verDatos();
-        }
-        if (revision == false){
-            int input;
-            input = JOptionPane.showConfirmDialog(this, "No tiene suficiente dinero para realizar el movimiento.", "Cliente",JOptionPane.DEFAULT_OPTION);
-        }
-    }
+       
     
     
     @SuppressWarnings("unchecked")
